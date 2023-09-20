@@ -1,4 +1,4 @@
-streamlit
-docx2txt
-difflib
-python-docx
+streamlit==0.88.0
+python-docx==0.8.11
+translate==3.6.1
+difflib==3.7.0
