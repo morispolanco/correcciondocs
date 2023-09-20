@@ -60,7 +60,7 @@ def show_changes(compared_lines):
 if st.button("Traducir y Comparar"):
     if uploaded_file is not None:
         # Leer el contenido del archivo DOCX
-        doc = Document(uploaded_file)
+        original_doc = Document(uploaded_file)
         original_text = docx2txt.process(uploaded_file)
 
         # Traducción al inglés
