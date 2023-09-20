@@ -88,8 +88,8 @@ if st.button("Traducir y Comparar"):
 
         # Guardar documento con cambios en disco
         with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as temp_file:
-        changed_doc.save(temp_file.name)  # Cambiar 'save_as' por 'save'
-        changed_doc_path = temp_file.name
+            changed_doc.save(temp_file.name)  # Cambiar 'save_as' por 'save'
+            changed_doc_path = temp_file.name
 
         # Descargar documento con cambios
         st.download_button("Descargar Documento con Cambios", data=changed_doc_path, file_name="documento_con_cambios.docx")
