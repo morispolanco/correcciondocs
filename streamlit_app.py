@@ -94,19 +94,6 @@ if st.button("Traducir y Comparar"):
         # Descargar documento con cambios
         st.download_button("Descargar Documento con Cambios", data=changed_doc_path, file_name="documento_con_cambios.docx")
 
-        # Mostrar documentos en Streamlit
-        st.markdown("### Documento Original")
-        st.text(original_text)
-
-        st.markdown("### Documento Traducido al Inglés")
-        st.text(translated_text_english)
-
-        st.markdown("### Documento Traducido al Español")
-        st.text(translated_text_spanish)
-
-        st.markdown("### Documento con Cambios")
-        st.text(changed_doc)
-
         # Eliminar archivos temporales
         os.remove(translated_doc_path)
         os.remove(changed_doc_path)
