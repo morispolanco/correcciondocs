@@ -4,6 +4,8 @@ from googletrans import Translator
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
+import tempfile
+import os
 
 # Título de la aplicación
 st.title("Traductor de Documentos")
@@ -73,8 +75,13 @@ if st.button("Traducir y Comparar"):
         translated_doc_spanish = Document()
         translated_doc_spanish.add_paragraph(translated_text_spanish)
 
+        # Guardar archivo DOCX traducido en disco
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as temp_file:
+            translated_doc_spanish.save(temp_file.name)
+            translated_doc_path = temp_file.name
+
         # Comparar documentos
-        compared_lines = compare_documents(uploaded_file, translated_doc_spanish)
+        compared_lines = compare_documents(uploaded_file, translated_doc_path)
 
         # Mostrar cambios
         changed_doc = show_changes(compared_lines)
@@ -94,6 +101,9 @@ if st.button("Traducir y Comparar"):
 
         st.markdown("### Documento con Cambios")
         st.text(changed_doc)
+
+        # Eliminar archivo temporal
+        os.remove(translated_doc_path)
 
     else:
         st.error("Por favor, cargue un archivo DOCX.")
