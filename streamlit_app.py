@@ -1,6 +1,6 @@
 import streamlit as st
 import docx2txt
-from googletrans import Translator
+from translate import Translator
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 from docx.shared import Pt
@@ -15,15 +15,15 @@ uploaded_file = st.file_uploader("Cargar archivo DOCX", type=["docx"])
 
 # Traducción al inglés con Google Translate
 def translate_to_english(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='en')
-    return translation.text
+    translator = Translator(to_lang="en")
+    translation = translator.translate(text)
+    return translation
 
 # Traducción al español con Google Translate
 def translate_to_spanish(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='es')
-    return translation.text
+    translator = Translator(to_lang="es")
+    translation = translator.translate(text)
+    return translation
 
 # Comparar documentos y resaltar cambios
 def compare_documents(original_doc, translated_doc):
@@ -88,7 +88,7 @@ if st.button("Traducir y Comparar"):
 
         # Guardar documento con cambios en disco
         with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as temp_file:
-            changed_doc.save_as(temp_file.name)
+            changed_doc.save(temp_file.name)
             changed_doc_path = temp_file.name
 
         # Descargar documento con cambios
