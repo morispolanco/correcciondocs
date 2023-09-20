@@ -86,8 +86,13 @@ if st.button("Traducir y Comparar"):
         # Mostrar cambios
         changed_doc = show_changes(compared_lines)
 
+        # Guardar documento con cambios en disco
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as temp_file:
+            changed_doc.save(temp_file.name)
+            changed_doc_path = temp_file.name
+
         # Descargar documento con cambios
-        st.download_button("Descargar Documento con Cambios", data=changed_doc, file_name="documento_con_cambios.docx")
+        st.download_button("Descargar Documento con Cambios", data=changed_doc_path, file_name="documento_con_cambios.docx")
 
         # Mostrar documentos en Streamlit
         st.markdown("### Documento Original")
@@ -102,8 +107,9 @@ if st.button("Traducir y Comparar"):
         st.markdown("### Documento con Cambios")
         st.text(changed_doc)
 
-        # Eliminar archivo temporal
+        # Eliminar archivos temporales
         os.remove(translated_doc_path)
+        os.remove(changed_doc_path)
 
     else:
         st.error("Por favor, cargue un archivo DOCX.")
